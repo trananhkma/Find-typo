@@ -13,6 +13,8 @@ def make_dict_from_file(fname):
                 continue
             key = ' ' + line.split('(')[0]
             value = line.split('(')[1].split(')')[0]
+            if 'variant of' in value:
+                continue
             DICT[key] = value
     return DICT
 
