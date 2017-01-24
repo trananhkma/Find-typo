@@ -33,7 +33,7 @@ def make_grep(result):
     for key in d:
         keys += key + '\|'
     keys = keys[:-2]
-    grep = """grep -rn " """ + keys + """ " |grep 'py\|rst\|md'| grep " """ + keys + '"'
+    grep = """grep -rn " """ + keys + """ " |grep 'rst\|md'|grep -v java| grep " """ + keys + '"'
     with open('grep_cmd.sh', 'w') as f:
         f.write('#!/bin/bash\n\n')
         f.write(grep)
