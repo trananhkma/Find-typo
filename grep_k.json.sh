@@ -1,0 +1,3 @@
+#!/bin/bash
+
+grep -rn "  kingdon \| keep's \| konw \| keeped \| knowlege \| kinoscope \| killogram \| knwo \| konws \| know's \| knowldge \| knowed \| knive \| knit-pick \| keybord \| knifes \| kiloohms \| knowlegeable \| killometer \| knwos \| Klu Klux Klan \| kindergarden \| knitpick \| kerb \| kiloohm \| killometre  " |grep 'rst\|md'|grep -v java|grep -v css| grep -v 'js:'| grep -v tox| grep -v json |grep -v html | grep "  kingdon \| keep's \| konw \| keeped \| knowlege \| kinoscope \| killogram \| knwo \| konws \| know's \| knowldge \| knowed \| knive \| knit-pick \| keybord \| knifes \| kiloohms \| knowlegeable \| killometer \| knwos \| Klu Klux Klan \| kindergarden \| knitpick \| kerb \| kiloohm \| killometre "

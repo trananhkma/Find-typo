@@ -4,26 +4,28 @@ import os
 import string
 
 
-DICT = {}
-
-
 def make_dict_from_file(fname):
+    DICT = {}
     with open(fname) as f:
         for line in f:
             line = line.strip()
             if line.startswith('('):
                 continue
-            key = line.split('(')[0].strip()
+            key = ' ' + line.split('(')[0]
             value = line.split('(')[1].split(')')[0]
             DICT[key] = value
+    return DICT
 
 
 def make_json():
+    lst = []
     for name in string.lowercase:
-        make_dict_from_file(name + '.txt')
-    
-    with open('result.json', 'w') as f:
-        json.dump(DICT, f, sort_keys=True)
+        DICT = make_dict_from_file(name + '.txt')
+        fname = '%s.json' % name
+        with open(fname, 'w') as f:
+            json.dump(DICT, f, sort_keys=True)
+        lst.append(fname)
+    return lst
 
 
 def make_grep(result):
@@ -33,16 +35,17 @@ def make_grep(result):
     for key in d:
         keys += key + '\|'
     keys = keys[:-2]
-    grep = """grep -rn " """ + keys + """ " |grep 'rst\|md'|grep -v java| grep " """ + keys + '"'
-    with open('grep_cmd.sh', 'w') as f:
+    grep = """grep -rn " """ + keys + """ " |grep 'rst\|md'|grep -v java|grep -v css| grep -v 'js:'| grep -v tox| grep -v json |grep -v html | grep " """ + keys + '"'
+    name = 'grep_%s.sh' % result
+    with open(name, 'w') as f:
         f.write('#!/bin/bash\n\n')
         f.write(grep)
 
 
 def main():
-    if not os.path.isfile('result.json'):
-        make_json()
-    make_grep('result.json')
+    lst = make_json()
+    for f in lst:
+        make_grep(f)
 
 
 if __name__ == '__main__':
