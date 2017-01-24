@@ -37,7 +37,7 @@ def make_grep(result):
     for key in d:
         keys += key + '\|'
     keys = keys[:-2]
-    grep = """grep -rn " """ + keys + """ " |grep 'rst\|md'|grep -v java|grep -v css| grep -v 'js:'| grep -v tox| grep -v json |grep -v html | grep " """ + keys + '"'
+    grep = """grep -rn " """ + keys + """ " |grep 'rst\|md\|LOG\|except'|grep -v java|grep -v css| grep -v 'js:'| grep -v tox| grep -v json |grep -v html | grep " """ + keys + '"'
     name = 'grep_%s.sh' % result
     with open(name, 'w') as f:
         f.write('#!/bin/bash\n\n')
